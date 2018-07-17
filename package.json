@@ -3,11 +3,16 @@
 	"version": "1.0.0",
 	"description": "Script to bump version of package.json file",
 	"main": "bumpPackage",
+	"bin": {
+		"bump-package": "./bumpPackage"
+	},
 	"dependencies": {
 		"inquirer": "^6.0.0"
 	},
 	"devDependencies": {},
-	"scripts": {},
+	"scripts": {
+		"start": "./bumpPackage"
+	},
 	"keywords": [
 		"package.json",
 		"npm",
