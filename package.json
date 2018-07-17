@@ -1,21 +1,20 @@
 {
-  "name": "update-package-json",
-  "version": "1.0.0",
-  "description": "Script to bump package.json file",
-  "main": "updatePackage.sh",
-  "dependencies": {
-    "inquirer": "^6.0.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "package.json",
-    "npm",
-    "update",
-    "version"
-  ],
-  "author": "Sapan Bodiwala",
-  "license": "ISC"
+	"name": "update-package-json",
+	"version": "1.0.0",
+	"description": "Script to bump version of package.json file",
+	"main": "updatePackage",
+	"dependencies": {
+		"inquirer": "^6.0.0"
+	},
+	"devDependencies": {},
+	"scripts": {},
+	"keywords": [
+		"package.json",
+		"npm",
+		"update",
+		"version",
+		"bump"
+	],
+	"author": "Sapan Bodiwala",
+	"license": "ISC"
 }

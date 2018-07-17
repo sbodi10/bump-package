@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const inquirer = require('inquirer');
+const packageJSONPath = process.cwd() + '/package.json';
+
+function getPackageJSONFile() {
+    return JSON.parse(fs.readFileSync(packageJSONPath));
+}
+
+async function selectUpdateType() {
+    const packageJSONFile = getPackageJSONFile();
+    const currentVersionNumber = packageJSONFile.version;
+	const splitVersionValues = currentVersionNumber.split('.');
+
+    const majorNumber = splitVersionValues[0];
+    const minorNumber = splitVersionValues[1];
+    const patchNumber = splitVersionValues[2];
+
+	const majorVersionBump = (Number(majorNumber) + 1).toString() + '.0.0';
+	const minorVersionBump = majorNumber.toString() + '.' + (Number(minorNumber) + 1).toString() + '.0';
+	const patchVersionBump = majorNumber.toString() + '.' + minorNumber.toString() + '.' + (Number(patchNumber) + 1).toString();
+    
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'version',
+            message: 'What type of bump would you like to make?',
+            choices: [
+                {
+                    name: `Major (${majorVersionBump})`,
+                    value: majorVersionBump
+                },
+                {
+                    name: `Minor ${minorVersionBump}`,
+                    value: minorVersionBump
+                },
+                {
+                    name: `Patch ${patchVersionBump}`,
+                    value: patchVersionBump
+                }
+            ]
+        }
+    ]).then(answer => {
+        packageJSONFile.version = answer.version;
+        if (answer.version !== currentVersionNumber) {
+            fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSONFile, null, '\t'));
+            console.log('Package.json version updated to: ' + answer.version);
+        }
+    });
+};
+
+async function main() {
+	await selectUpdateType();
+}
+
+main();
